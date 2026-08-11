@@ -436,44 +436,6 @@ const NAMES = ["Maria","Tyler","Sofia","Jordan","Emily","Marcus","Ava","Diego",
 const MIN_PAYOUT = 28, MAX_PAYOUT = 214;
 
 /* ============================================================
-   SOURCE TRACKING
-   TikTok landing URL: https://yourdomain.com/page.html?source=__AID_NAME__
-   Passed through to the offer as source= and aff_sub=
-   ============================================================ */
-function getSource(){
-  const sources=[window.location.search];
-  try{if(window.parent&&window.parent!==window)sources.push(window.parent.location.search);}catch(e){}
-  try{if(window.top&&window.top!==window)sources.push(window.top.location.search);}catch(e){}
-  try{if(document.referrer)sources.push(new URL(document.referrer).search);}catch(e){}
-  for(const q of sources){
-    const params=new URLSearchParams(q);
-    for(const [key,value] of params.entries()){
-      if(key.toLowerCase()==='source'&&value)return value;
-    }
-  }
-  return '';
-}
-function appendSource(url){
-  const s = getSource();
-  if(!s) return url;
-  try{
-    const u = new URL(url, window.location.href);
-    if(!u.searchParams.has('source'))  u.searchParams.set('source', s);
-    if(!u.searchParams.has('aff_sub')) u.searchParams.set('aff_sub', s);
-    return u.toString();
-  }catch(e){
-    let out = url;
-    if(out.indexOf('source=') === -1){
-      out += (out.indexOf('?') !== -1 ? '&' : '?') + 'source=' + encodeURIComponent(s);
-    }
-    if(out.indexOf('aff_sub=') === -1){
-      out += '&aff_sub=' + encodeURIComponent(s);
-    }
-    return out;
-  }
-}
-
-/* ============================================================
    FEATURED GAME
    ============================================================ */
 document.getElementById('game-title').textContent  = FEATURED.title;
@@ -587,7 +549,7 @@ function goTo(url){
 [[iosBtn, IOS_BASE], [androidBtn, ANDROID_BASE]].forEach(([btn, base]) => {
   btn.addEventListener('click', e => {
     e.preventDefault();
-    pendingUrl = appendSource(base);
+    pendingUrl = base;
     openModal(ageOverlay);
   });
 });
