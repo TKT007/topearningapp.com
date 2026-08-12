@@ -1,0 +1,704 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FreeCash | Get paid to play games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://go.dailyappflow.com/unilpclick.js?attribution=lastpaid&cookiedomain=&cookieduration=90&defaultcampaignid=&regviewonce=false"></script>
+<style>
+  :root{
+    --bg:#0a0e17;
+    --bg-2:#0c1320;
+    --card:#101a2c;
+    --card-2:#0d1626;
+    --line:rgba(255,255,255,.07);
+    --green:#46d77f;
+    --green-text:#5be183;
+    --green-1:#63e58c;
+    --green-2:#27c163;
+    --text:#ffffff;
+    --muted:#8c97a9;
+    --muted-2:#5f6b7d;
+    --gold:#f6c453;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.45;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .container{max-width:500px;margin:0 auto;padding:0 22px}
+  .green{color:var(--green-text)}
+  .muted{color:var(--muted)}
+
+  /* landing-first: hide the page until the quiz + popup are done */
+  body:not(.revealed){overflow:hidden}
+  body:not(.revealed) header,
+  body:not(.revealed) main,
+  body:not(.revealed) #stickyCta,
+  body:not(.revealed) #toast{display:none !important}
+
+  /* ---------- HEADER ---------- */
+  header{position:sticky;top:0;z-index:60;background:rgba(8,12,21,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar{max-width:500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 22px}
+  .logo{display:flex;align-items:center;gap:7px;font-weight:800;letter-spacing:.5px}
+  .logo svg{display:block}
+  .live-pill{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#cbd5e1;background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.25);padding:6px 11px;border-radius:999px;white-space:nowrap}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* ---------- TICKER ---------- */
+  .ticker{overflow:hidden;border-bottom:1px solid var(--line);background:rgba(70,215,127,.03);white-space:nowrap}
+  .ticker-track{display:inline-flex;gap:34px;padding:9px 0;animation:scroll-x 32s linear infinite;will-change:transform}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  .ticker-item{font-size:12.5px;font-weight:600;color:#aeb8c7}
+  .ticker-item b{color:#dbe3ee;font-weight:700}
+  @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- BADGES ---------- */
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.4px;padding:7px 14px;border-radius:999px;text-transform:uppercase}
+  .badge-urgent{background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.3);color:var(--green-text);box-shadow:0 0 24px rgba(70,215,127,.12)}
+  .badge-live{background:rgba(255,255,255,.04);border:1px solid var(--line);color:#cdd5e0}
+  .badge-outline{background:transparent;border:1px solid rgba(70,215,127,.4);color:var(--green-text)}
+  .badge-boost{background:transparent;color:var(--green-text);padding:0;font-size:13px}
+  .badge-gold{background:rgba(246,196,83,.08);border:1px solid rgba(246,196,83,.35);color:var(--gold)}
+
+  /* ---------- HERO ---------- */
+  .hero{text-align:center;padding:34px 0 10px}
+  h1{font-size:clamp(44px,12vw,60px);font-weight:800;line-height:.98;letter-spacing:-.02em;margin:20px 0 0}
+  .sub{color:var(--muted);font-size:15.5px;margin-top:18px}
+  .sub b{color:#e7ecf3}
+
+  /* ---------- OFFER CARD ---------- */
+  .offer-card{position:relative;margin:26px 0 0;padding:22px;border-radius:22px;
+    background:linear-gradient(180deg,#13202f 0%,#0c1525 100%);
+    border:1px solid rgba(70,215,127,.16);
+    box-shadow:0 0 60px rgba(70,215,127,.07),inset 0 1px 0 rgba(255,255,255,.03);
+    overflow:hidden}
+  .offer-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .offer-amount{font-size:46px;font-weight:800;color:var(--green-text);letter-spacing:-.02em;margin-top:18px;line-height:1}
+  .offer-amount span{font-size:30px}
+  .offer-sublabel{font-size:11.5px;font-weight:700;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase;margin-top:8px}
+  .offer-icon{width:118px;height:118px;border-radius:26px;margin:22px auto 0;display:flex;align-items:center;justify-content:center;font-size:58px;line-height:1;box-shadow:0 14px 34px rgba(0,0,0,.4);transition:transform .35s,background .35s}
+  .offer-reward{font-size:30px;font-weight:800;color:var(--green-text);margin-top:16px}
+  .offer-hr{border:none;border-top:1px solid var(--line);margin:18px 0 14px}
+  .offer-now-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase}
+  .offer-game{font-size:19px;font-weight:800;margin-top:3px}
+  .offer-goal{font-size:14px;color:var(--muted);margin-top:1px}
+  .offer-foot{position:relative;min-height:42px;margin:9px 0 16px;display:flex;flex-direction:column;justify-content:center}
+  .offer-mini{position:absolute;left:0;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1}
+  .offer-seg{display:flex;gap:6px;flex:1}
+  .offer-seg i{height:4px;flex:1;border-radius:3px;background:rgba(255,255,255,.09);transition:.3s}
+  .offer-seg i.on{background:var(--green);box-shadow:0 0 8px rgba(70,215,127,.6)}
+
+  /* ---------- BUTTONS ---------- */
+  .cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:linear-gradient(180deg,var(--green-1),var(--green-2));
+    color:#06210f;font-weight:800;font-size:18px;padding:18px;border:none;border-radius:999px;cursor:pointer;
+    box-shadow:0 8px 30px rgba(60,210,120,.35),0 0 0 1px rgba(120,255,170,.25) inset;
+    transition:transform .12s,box-shadow .2s}
+  .cta:hover{transform:translateY(-1px);box-shadow:0 12px 38px rgba(60,210,120,.5)}
+  .cta:active{transform:translateY(0)}
+  .cta-ghost{background:transparent;border:1px solid var(--line);color:#fff;box-shadow:none;font-size:16px}
+  .cta-ghost:hover{border-color:rgba(70,215,127,.4);box-shadow:none}
+
+  .pay-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .pay-label{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--muted-2);text-transform:uppercase}
+  .chip{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:#cdd5e0}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:46px 0}
+  .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:1.4px;color:var(--green-text);text-transform:uppercase}
+  h2{font-size:clamp(32px,8vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.02;margin-top:10px}
+  .lead{color:var(--muted);font-size:15px;margin-top:12px}
+  .lead b{color:#e7ecf3}
+
+  /* tiers */
+  .tier-card{margin-top:24px;padding:20px;border-radius:22px;background:radial-gradient(120% 80% at 50% 0%,rgba(70,215,127,.08),transparent 60%),linear-gradient(180deg,#101c2c,#0c1424);border:1px solid rgba(70,215,127,.16);box-shadow:0 0 60px rgba(70,215,127,.06)}
+  .tier{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line);margin-bottom:12px;cursor:pointer;transition:.18s}
+  .tier:hover{border-color:rgba(70,215,127,.35);background:rgba(70,215,127,.04)}
+  .tier.featured{border-color:rgba(70,215,127,.5);background:rgba(70,215,127,.06)}
+  .tier-left{display:flex;flex-direction:column;gap:7px}
+  .tier-name{font-size:20px;font-weight:800}
+  .tier-tag{font-size:11px;font-weight:800;color:var(--gold);background:rgba(246,196,83,.1);border:1px solid rgba(246,196,83,.3);padding:4px 9px;border-radius:999px;width:fit-content;letter-spacing:.3px}
+  .tier-amt{font-size:30px;font-weight:800;color:var(--green-text)}
+  .tier-arrow{color:var(--muted-2);font-size:20px}
+  .withdraw-note{text-align:center;color:var(--muted-2);font-size:13px;margin-top:14px}
+
+  /* total paid */
+  .total-card{margin-top:0;padding:26px;text-align:center;border-radius:22px;background:linear-gradient(180deg,#101c2c,#0c1424);border:1px solid var(--line)}
+  .total-label{font-size:12px;font-weight:800;letter-spacing:1.2px;color:var(--green-text);text-transform:uppercase;display:flex;align-items:center;gap:8px;justify-content:center}
+  .total-num{font-size:clamp(42px,12vw,58px);font-weight:800;color:var(--green-text);letter-spacing:-.02em;line-height:1;margin-top:14px}
+  .total-sub{color:var(--muted);font-size:14px;margin-top:12px}
+  .total-sub b{color:#e7ecf3}
+
+  /* payouts grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+  .pcard{padding:16px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
+  .pcard .ph{display:flex;align-items:center;gap:11px}
+  .pcard .pi{width:46px;height:46px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:23px;line-height:1}
+  .pcard .pn{font-weight:800;font-size:15px}
+  .pcard .pg{font-size:12px;color:var(--muted)}
+  .pcard .pr{font-size:21px;font-weight:800;color:var(--green-text);margin-top:12px}
+
+  /* phone mockup */
+  .phone{margin:26px auto 0;width:300px;max-width:88%;background:#05080f;border:8px solid #1a2435;border-radius:38px;padding:16px 14px 18px;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+  .phone-status{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#c6cedb;padding:2px 6px 10px}
+  .wallet{background:linear-gradient(180deg,#54d784,#33bd6a);border-radius:18px;padding:18px;color:#06210f}
+  .wallet-label{font-size:11px;font-weight:800;letter-spacing:1px;opacity:.8}
+  .wallet-bal{font-size:36px;font-weight:800;margin-top:4px;line-height:1}
+  .wallet-foot{display:flex;justify-content:space-between;font-size:12.5px;font-weight:800;margin-top:12px}
+  .games-head{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--muted);margin:16px 4px 8px}
+  .games-head span:last-child{color:var(--green-text)}
+  .grow{display:flex;align-items:center;gap:11px;padding:11px;border-radius:13px;background:rgba(255,255,255,.03);margin-bottom:9px}
+  .grow .gi{width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1}
+  .grow .gn{font-weight:800;font-size:14px}
+  .grow .gg{font-size:11.5px;color:var(--muted)}
+  .grow .gr{margin-left:auto;font-weight:800;color:var(--green-text);font-size:16px}
+
+  /* features */
+  .feat{display:flex;gap:14px;align-items:flex-start;margin-top:22px}
+  .feat .fi{width:46px;height:46px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.18)}
+  .feat h3{font-size:18px;font-weight:800}
+  .feat p{color:var(--muted);font-size:14px;margin-top:3px}
+
+  /* steps */
+  .step{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line);margin-top:14px}
+  .step .sn{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(180deg,var(--green-1),var(--green-2));color:#06210f}
+  .step h3{font-size:17px;font-weight:800}
+  .step p{color:var(--muted);font-size:14px;margin-top:3px}
+
+  /* testimonials */
+  .tcard{padding:20px;border-radius:18px;background:rgba(255,255,255,.025);border:1px solid var(--line);margin-top:16px}
+  .tcard .th{display:flex;align-items:center;gap:12px}
+  .tcard .ta{width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#06210f;background:linear-gradient(180deg,#63e58c,#27c163)}
+  .tcard .tn{font-weight:800;font-size:16px;display:flex;align-items:center;gap:6px}
+  .tcard .tv{font-size:12.5px;color:var(--muted-2)}
+  .stars{color:var(--gold);margin-top:12px;letter-spacing:2px}
+  .tcard .tq{margin-top:10px;font-size:15px;color:#dbe3ee;line-height:1.55}
+  .paid-tag{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:800;color:var(--green-text);background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.2);padding:6px 12px;border-radius:999px}
+
+  footer{padding:40px 0 130px;text-align:center;color:var(--muted-2);font-size:12.5px;border-top:1px solid var(--line)}
+  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+
+  /* subtle "Terms and Conditions" link + popup */
+  .tc-link{display:inline-block;background:none;border:none;font-family:inherit;color:var(--muted-2);font-size:11px;letter-spacing:.2px;text-decoration:underline;text-underline-offset:2px;cursor:pointer;opacity:.55;padding:0;transition:opacity .15s,color .15s}
+  .tc-link:hover{opacity:1;color:var(--muted)}
+  .quiz-terms{margin:0 auto;padding:14px 24px calc(20px + env(safe-area-inset-bottom));text-align:center}
+  footer .tc-link{margin-top:12px}
+  .tc-wrap{position:fixed;inset:0;z-index:200;background:rgba(6,10,18,.6);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:22px}
+  .tc-wrap.open{display:flex}
+  .tc-box{position:relative;width:100%;max-width:440px;max-height:80vh;overflow-y:auto;background:linear-gradient(180deg,#101e2e,#0a1220);border:1px solid var(--line);border-radius:20px;padding:26px 22px;box-shadow:0 24px 70px rgba(0,0,0,.6);animation:rise .35s cubic-bezier(.2,.8,.2,1)}
+  .tc-box h3{font-size:20px;font-weight:800}
+  .tc-box .tc-body{color:var(--muted);font-size:12.5px;line-height:1.65;margin-top:14px}
+  .tc-box .tc-body p+p{margin-top:10px}
+  .tc-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+  .check{color:#3b9dff}
+
+  /* ---------- STICKY BOTTOM CTA ---------- */
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:55;padding:14px 18px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(8,12,21,.96)35%);transform:translateY(120%);transition:transform .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+  .sticky-cta.show{transform:translateY(0);pointer-events:auto}
+  .sticky-cta .inner{max-width:500px;margin:0 auto}
+
+  /* ---------- TOASTS ---------- */
+  .toast{position:fixed;left:18px;bottom:100px;z-index:58;display:flex;align-items:center;gap:12px;background:rgba(15,23,38,.96);border:1px solid var(--line);backdrop-filter:blur(8px);padding:12px 18px 12px 12px;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.5);opacity:0;transform:translateY(14px) scale(.96);transition:.4s;max-width:330px}
+  .toast.show{opacity:1;transform:translateY(0) scale(1)}
+  .toast .av{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#06210f;background:linear-gradient(180deg,#63e58c,#27c163)}
+  .toast .tt{font-size:14px;color:#dbe3ee}
+  .toast .tt b{color:var(--green-text)}
+
+  /* ---------- MODAL / QUIZ ---------- */
+  .overlay{position:fixed;inset:0;z-index:100;background:linear-gradient(180deg,#0d1626,#080d16);display:none;flex-direction:column;overflow-y:auto}
+  .overlay.open{display:flex}
+  .quiz{flex:1;width:100%;background:radial-gradient(120% 50% at 50% 18%,rgba(70,215,127,.08),transparent 60%);display:flex;flex-direction:column}
+  .quiz-header{display:flex;flex-direction:column;align-items:center;gap:16px;padding:22px 22px 0}
+  .quiz-logo{display:flex;align-items:center;gap:7px;font-weight:800;letter-spacing:.5px;background:rgba(255,255,255,.03);border:1px solid var(--line);padding:8px 14px;border-radius:12px}
+  .quiz-logo svg{display:block}
+  .quiz-top{width:100%;max-width:920px;display:flex;align-items:center;gap:14px}
+  .quiz-bar{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+  .quiz-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green-1),var(--green-2));border-radius:999px;transition:width .4s}
+  .quiz-step{font-size:13px;font-weight:800;color:#cbd5e1}
+  .quiz-pct{font-size:13px;font-weight:800;color:#ff7eb6}
+  .qbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding:22px}
+  .qbody.q-center{align-items:center}
+  .q-inner{width:100%}
+  .q-copy h2{font-size:clamp(30px,8vw,40px);line-height:1.02}
+  .q-opts{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+  .q-opt{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line);cursor:pointer;font-size:18px;font-weight:800;transition:.16s;text-align:left;color:#fff;width:100%}
+  .q-opt:hover{border-color:rgba(70,215,127,.45);background:rgba(70,215,127,.05);transform:translateY(-1px)}
+  .q-opt .qe{font-size:22px}
+  .q-opt .qarrow{margin-left:auto;color:var(--muted-2)}
+  .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:8px}
+  .spinner{width:78px;height:78px;border-radius:50%;border:6px solid rgba(70,215,127,.18);border-top-color:var(--green);animation:spin 1.6s linear infinite;margin-bottom:24px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loader h2{font-size:34px}
+  .loader p{color:var(--muted);margin-top:10px;font-size:15px}
+  /* desktop: the quiz fills the whole page in a two-pane layout */
+  @media(min-width:1024px){
+    .quiz-header{padding-top:30px;gap:22px}
+    .qbody{padding:40px 64px 72px}
+    .q-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center}
+    .q-copy h2{font-size:clamp(46px,4.6vw,66px);line-height:1.01}
+    .q-copy .lead{font-size:18px;max-width:440px}
+    .q-opts{margin-top:0}
+    .q-opt{padding:25px 30px;font-size:22px;border-radius:18px}
+    .q-opt .qe{font-size:28px}
+    .loader h2{font-size:clamp(42px,4.6vw,62px)}
+    .loader p{font-size:18px}
+    .spinner{width:100px;height:100px;border-width:7px}
+  }
+
+  /* spot reserved popup */
+  .sheet-wrap{position:fixed;inset:0;z-index:110;background:rgba(6,10,18,.5);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);display:none;align-items:flex-end;justify-content:center}
+  .sheet-wrap.open{display:flex}
+  .sheet{width:100%;max-width:460px;background:radial-gradient(120% 80% at 50% 0%,rgba(70,215,127,.14),transparent 55%),linear-gradient(180deg,#101e2e,#0a1220);border:1px solid rgba(70,215,127,.3);border-bottom:none;border-radius:26px 26px 0 0;padding:26px 24px calc(30px + env(safe-area-inset-bottom));box-shadow:0 -10px 60px rgba(70,215,127,.16);position:relative;animation:rise .4s cubic-bezier(.2,.8,.2,1)}
+  @keyframes rise{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .sheet-close{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .sheet h2{font-size:34px;margin-top:14px;line-height:1.02}
+  .sheet p{color:var(--muted);font-size:15px;margin-top:12px}
+  .sheet p b{color:#fff}
+  .timer-box{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding:16px 18px;border-radius:14px;border:1px solid rgba(246,196,83,.3);background:rgba(246,196,83,.05)}
+  .timer-box .tl{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
+  .timer-box .tv{font-size:30px;font-weight:800}
+  .sheet .cta{margin-top:20px}
+  .sheet-pass{display:block;text-align:center;margin-top:18px;color:var(--muted-2);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  @media(max-width:380px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="topbar">
+    <div class="logo">
+      <svg viewBox="0 0 21 19" width="22" height="20" fill="var(--green-text)" aria-label="Freecash"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path></svg>
+      <svg viewBox="0 0 137 16" width="84" height="10" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="var(--green-text)"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="var(--text)"></path></svg>
+    </div>
+    <div class="live-pill"><span class="dot"></span>Live · 12,847 playing</div>
+  </div>
+  <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
+</header>
+
+<!-- HERO -->
+<main>
+<div class="container">
+  <div class="hero">
+    <span class="badge badge-urgent">🔥 Urgent · $15 Unlocked</span>
+    <h1>Get paid to<br><span class="green">play games.</span></h1>
+
+    <!-- ROTATING OFFER CARD -->
+    <div class="offer-card">
+      <div class="offer-row">
+        <span class="badge badge-live"><span class="dot"></span>Paid out today</span>
+        <span class="badge badge-outline">$25 on install</span>
+      </div>
+      <div class="offer-amount" id="liveAmount">$8,265 ↗</div>
+      <div class="offer-sublabel">Across FreeCash players · 24h</div>
+      <div class="offer-icon" id="offerIcon">🏎️</div>
+      <div class="offer-reward" id="offerReward">+$48.75</div>
+      <hr class="offer-hr"/>
+      <div class="offer-now-label">Now playing for cash</div>
+      <div class="offer-foot">
+        <div class="offer-mini" id="offerMini">🏎️</div>
+        <div class="offer-game" id="offerGame">Pulse Racer</div>
+        <div class="offer-goal" id="offerGoal">Win 3 races</div>
+      </div>
+      <div class="offer-seg" id="offerSeg"></div>
+    </div>
+
+    <p class="sub"><b>Cover that bond, fast.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.</p>
+
+    <div style="margin-top:22px"><a class="cta" href="https://fb.otokuapps.com/click">Claim My $15 Now <span>→</span></a></div>
+
+    <div class="pay-row">
+      <span class="pay-label">Cash out via</span>
+      <span class="chip">💚 CashApp</span>
+      <span class="chip">💙 Venmo</span>
+      <span class="chip">🅿️ PayPal</span>
+      <span class="chip">🏦 Bank</span>
+    </div>
+  </div>
+</div>
+
+<!-- BOOST MODE -->
+<div class="container">
+  <section>
+    <span class="badge badge-boost">🔥 Boost Mode · Today Only</span>
+    <h2>Play games, <span class="green">get paid.</span></h2>
+    <p class="lead">Download the games inside FreeCash &amp; play each a couple mins to unlock. <b>3 games ≈ 10 mins.</b></p>
+
+    <div class="tier-card">
+      <div style="text-align:center;margin-bottom:18px"><span class="badge badge-gold">⚡ Expires in <span class="js-countdown">04:54</span></span></div>
+      <a class="tier" href="https://fb.otokuapps.com/click">
+        <div class="tier-left"><div class="tier-name">Play 1 game</div></div>
+        <div class="tier-amt">$10</div>
+      </a>
+      <a class="tier featured" href="https://fb.otokuapps.com/click">
+        <div class="tier-left"><div class="tier-name">Play 3 games</div><span class="tier-tag">🔥 Most picked · ~10 min</span></div>
+        <div class="tier-amt">$30</div>
+      </a>
+      <a class="tier" href="https://fb.otokuapps.com/click">
+        <div class="tier-left"><div class="tier-name">Play 5 games</div></div>
+        <div class="tier-amt">$50</div>
+      </a>
+      <a class="cta" href="https://fb.otokuapps.com/click" style="margin-top:6px">Unlock My Reward <span>→</span></a>
+      <p class="withdraw-note">Withdraw anytime to CashApp, Venmo or PayPal.</p>
+    </div>
+  </section>
+</div>
+
+<!-- TOTAL PAID -->
+<div class="container">
+  <section style="padding-top:0">
+    <div class="total-card">
+      <div class="total-label"><span class="dot"></span>Total paid out · live</div>
+      <div class="total-num" id="totalPaid">$38,403,075</div>
+      <div class="total-sub">…and counting. <b id="paidToday">$8,265</b> paid today.</div>
+    </div>
+  </section>
+</div>
+
+<!-- TODAY'S TOP PAYOUTS -->
+<div class="container">
+  <section style="padding-top:0">
+    <span class="eyebrow">📱 Inside the FreeCash app</span>
+    <h2>Today's top <span class="green">payouts.</span></h2>
+    <p class="lead">Install FreeCash → tap a game to download it → play a couple mins → reward hits your wallet.</p>
+    <div class="grid" id="payGrid"></div>
+    <a class="cta" href="https://fb.otokuapps.com/click" style="margin-top:22px">Download FreeCash <span>→</span></a>
+  </section>
+</div>
+
+<!-- REAL GAMES / PHONE -->
+<div class="container">
+  <section style="padding-top:0">
+    <span class="eyebrow">Inside the app</span>
+    <h2>Real games. <span class="green">Real bag.</span></h2>
+    <p class="lead">Pick a game, play a few mins, get paid.</p>
+
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="wallet">
+        <div class="wallet-label">WALLET BALANCE</div>
+        <div class="wallet-bal">$127.42</div>
+        <div class="wallet-foot"><span>+$8.20 today</span><span>✓ Verified</span></div>
+      </div>
+      <div class="games-head"><span>TODAY'S GAMES</span><span>12 LIVE</span></div>
+      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#f5c542,#e0a020)">👑</div><div><div class="gn">Royal Match</div><div class="gg">Reach level 8 · 3 min</div></div><div class="gr">+$50</div></div>
+      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#ff8a3d,#f25c2a)">🏎️</div><div><div class="gn">Pulse Racer</div><div class="gg">Win 3 races · 3 min</div></div><div class="gr">+$40</div></div>
+      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#5aa9ff,#3d7ef2)">⚔️</div><div><div class="gn">Arena Clash</div><div class="gg">Survive round 5 · 4 min</div></div><div class="gr">+$35</div></div>
+      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#5be07f,#2bbf63)">🏰</div><div><div class="gn">Block Empire</div><div class="gg">Build city lvl 4 · 4 min</div></div><div class="gr">+$55</div></div>
+      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#c46bff,#e35cd0)">🃏</div><div><div class="gn">Solitaire Cash</div><div class="gg">Win 5 hands · 3 min</div></div><div class="gr">+$30</div></div>
+    </div>
+
+    <div class="feat"><div class="fi">⚡</div><div><h3>Cash out in minutes</h3><p>First payout under 48hrs. After that, instant to CashApp / Venmo / PayPal.</p></div></div>
+    <div class="feat"><div class="fi">🎮</div><div><h3>Real games, no surveys</h3><p>Match 3, racing, tower defense. Actually fun.</p></div></div>
+    <div class="feat"><div class="fi">🔒</div><div><h3>100% free</h3><p>No deposit required. Pull out everything you earn.</p></div></div>
+  </section>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="container">
+  <section style="padding-top:0">
+    <span class="eyebrow">How it works</span>
+    <h2>3 steps. <span class="green">Real cash.</span></h2>
+    <div class="step"><div class="sn">1</div><div><h3>Download FreeCash, free</h3><p>iOS &amp; Android. 30 seconds.</p></div></div>
+    <div class="step"><div class="sn">2</div><div><h3>Tap a game · install + play in-app</h3><p>Download the games through FreeCash, then play each ~3 mins to unlock.</p></div></div>
+    <div class="step"><div class="sn">3</div><div><h3>Cash out, anytime</h3><p>CashApp, Venmo or PayPal. First payout under 48 hours.</p></div></div>
+    <a class="cta" href="https://fb.otokuapps.com/click" style="margin-top:24px">Get Paid to Play <span>→</span></a>
+  </section>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="container">
+  <section style="padding-top:0">
+    <span class="eyebrow">Real users · Real bag</span>
+    <h2>They got the bag. <span class="green">You're next.</span></h2>
+
+    <div class="tcard">
+      <div class="th"><div class="ta">M</div><div><div class="tn">Marcus J. <span class="check">✔</span></div><div class="tv">Verified · Atlanta, GA</div></div></div>
+      <div class="stars">★★★★★</div>
+      <div class="tq">"Needed bond money quick. Played 3 games, got $30 same day. Wild."</div>
+      <span class="paid-tag">$214 paid out</span>
+    </div>
+    <div class="tcard">
+      <div class="th"><div class="ta">D</div><div><div class="tn">Devon T. <span class="check">✔</span></div><div class="tv">Verified · Brooklyn, NY</div></div></div>
+      <div class="stars">★★★★★</div>
+      <div class="tq">"Was skeptical. Played the games, cashed out to CashApp in 4 minutes. Sold."</div>
+      <span class="paid-tag">$248 paid out</span>
+    </div>
+    <div class="tcard">
+      <div class="th"><div class="ta">J</div><div><div class="tn">Jess L. <span class="check">✔</span></div><div class="tv">Verified · Houston, TX</div></div></div>
+      <div class="stars">★★★★★</div>
+      <div class="tq">"Played 5 games on a Sunday, $50 hit. Rent week ain't hittin the same."</div>
+      <span class="paid-tag">$320 paid out</span>
+    </div>
+
+    <a class="cta" href="https://fb.otokuapps.com/click" style="margin-top:26px">Get Paid to Play <span>→</span></a>
+  </section>
+</div>
+
+<footer>
+  © FreeCash 2026. Earnings shown are typical for active members and not guaranteed.<br/>
+  <button type="button" class="tc-link" data-tc-open>Terms and Conditions</button>
+</footer>
+</main>
+
+<!-- STICKY BOTTOM CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="inner"><a class="cta" href="https://fb.otokuapps.com/click">Claim $15 · <span class="js-countdown">04:54</span> <span>→</span></a></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><div class="av" id="toastAv">T</div><div class="tt" id="toastText"><b>Tay R.</b> just cashed out $179.17</div></div>
+
+<!-- QUIZ MODAL (shown first — this is the landing) -->
+<div class="overlay open" id="quiz">
+  <div class="quiz">
+    <div class="quiz-header">
+      <div class="quiz-logo">
+        <svg viewBox="0 0 21 19" width="20" height="18" fill="var(--green-text)" aria-label="Freecash"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path></svg>
+        <svg viewBox="0 0 137 16" width="76" height="9" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="var(--green-text)"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="var(--text)"></path></svg>
+      </div>
+      <div class="quiz-top">
+        <span class="quiz-step" id="qStep">Step 1/3</span>
+        <div class="quiz-bar"><i id="qBar" style="width:33%"></i></div>
+        <span class="quiz-pct" id="qPct">33%</span>
+      </div>
+    </div>
+
+    <!-- step 1 -->
+    <div class="qbody" data-q="1">
+      <div class="q-inner">
+        <div class="q-copy">
+          <span class="badge badge-outline" style="width:fit-content">🎮 Quick check</span>
+          <h2 style="margin-top:18px">First, you on<br><span class="green">iPhone or Android?</span></h2>
+          <p class="lead">We'll match you with the right version of the app. Takes 2 seconds.</p>
+        </div>
+        <div class="q-opts">
+          <button class="q-opt" data-next><span class="qe">📱</span> iPhone <span class="qarrow">→</span></button>
+          <button class="q-opt" data-next><span class="qe">🤖</span> Android <span class="qarrow">→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- step 2 -->
+    <div class="qbody" data-q="2" style="display:none">
+      <div class="q-inner">
+        <div class="q-copy">
+          <span class="badge badge-outline" style="width:fit-content">🎯 Last one</span>
+          <h2 style="margin-top:18px">If you got a quick <span class="green">$500 right now</span>, what's it going to?</h2>
+          <p class="lead">No wrong answer. We just match you with the best earning track.</p>
+        </div>
+        <div class="q-opts">
+          <button class="q-opt" data-next><span class="qe">⛓️</span> Bond / lawyer money <span class="qarrow">→</span></button>
+          <button class="q-opt" data-next><span class="qe">🏠</span> Rent or bills <span class="qarrow">→</span></button>
+          <button class="q-opt" data-next><span class="qe">👟</span> Drip: fits, kicks, the chain <span class="qarrow">→</span></button>
+          <button class="q-opt" data-next><span class="qe">🍼</span> Family <span class="qarrow">→</span></button>
+          <button class="q-opt" data-next><span class="qe">💰</span> Extra bread: invest, flip, going out <span class="qarrow">→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- step 3 loading -->
+    <div class="qbody q-center" data-q="3" style="display:none">
+      <div class="loader">
+        <div class="spinner"></div>
+        <h2>Unlocking your<br><span class="green">3x match offer…</span></h2>
+        <p>Pulling games that match your goal.</p>
+      </div>
+    </div>
+
+    <!-- subtle terms link, shown on every quiz step -->
+    <div class="quiz-terms"><button type="button" class="tc-link" data-tc-open>Terms and Conditions</button></div>
+  </div>
+</div>
+
+<!-- SPOT RESERVED SHEET -->
+<div class="sheet-wrap" id="sheet">
+  <div class="sheet">
+    <button class="sheet-close" id="sheetClose">×</button>
+    <span class="badge badge-outline" style="width:fit-content">🎉 You're in</span>
+    <h2>Spot reserved.<br><span class="green">$15 unlocked</span></h2>
+    <p>Download FreeCash, play 3 games (~10 mins).<br><b>Only 1 spot left in your area.</b></p>
+    <div class="timer-box"><span class="tl">⏰ Expires in</span><span class="tv js-countdown">04:54</span></div>
+    <a class="cta" id="sheetClaim" href="https://fb.otokuapps.com/click" style="margin-top:20px">Claim My $15 <span>→</span></a>
+    <span class="sheet-pass" id="sheetPass">No thanks, I'll pass on the bag</span>
+  </div>
+</div>
+
+<!-- TERMS & CONDITIONS POPUP -->
+<div class="tc-wrap" id="tcModal" aria-hidden="true">
+  <div class="tc-box" role="dialog" aria-modal="true" aria-label="Terms and Conditions">
+    <button class="tc-close" id="tcClose" type="button" aria-label="Close">×</button>
+    <h3>Terms &amp; Conditions</h3>
+    <div class="tc-body">
+      <p>This page is a paid advertisement and not a news article, review or endorsement.</p>
+      <p>Rewards are provided by an independent third-party partner, are not guaranteed, and vary based on completing the required in-app games and steps. Payout times, eligibility, available games and reward amounts may change at any time without notice.</p>
+      <p>Live counters, payout figures and testimonials shown are illustrative and do not represent typical results. Participation requires users aged 18 or older.</p>
+      <p>FreeCash and all game titles are trademarks of their respective owners; references are for identification only and do not imply affiliation or endorsement. By continuing you agree to the offer provider's terms.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* =========================================================
+     OFFER LINK: where the "Claim" buttons send the visitor.
+     This points to the same dailyappflow tracker your other
+     page uses. Change it if this funnel needs a different URL.
+     ========================================================= */
+  const OFFER_URL = "https://fb.otokuapps.com/click";
+
+  /* ---------- data ---------- */
+  const GAMES = [
+    {name:"Royal Match",   goal:"Reach Level 5",  reward:"+$54.20", emoji:"👑", bg:"linear-gradient(135deg,#f5c542,#e0a020)"},
+    {name:"Pulse Racer",   goal:"Win 3 races",    reward:"+$48.75", emoji:"🏎️", bg:"linear-gradient(135deg,#ff8a3d,#f25c2a)"},
+    {name:"Arena Clash",   goal:"Survive round 5",reward:"+$39.40", emoji:"⚔️", bg:"linear-gradient(135deg,#5aa9ff,#3d7ef2)"},
+    {name:"Block Empire",  goal:"Build city lvl 4",reward:"+$46.85", emoji:"🏰", bg:"linear-gradient(135deg,#5be07f,#2bbf63)"},
+    {name:"Solitaire Cash",goal:"Win 5 hands",    reward:"+$31.10", emoji:"🃏", bg:"linear-gradient(135deg,#c46bff,#e35cd0)"},
+    {name:"Crossy Road",   goal:"Hop & dodge",    reward:"+$28.40", emoji:"🐔", bg:"linear-gradient(135deg,#4fd9c0,#34c3a8)"},
+  ];
+  const TICKER = [
+    "🍀|Tay R.|cashed out $84.20","🔥|Jay D.|just hit $250","💜|Kee B.|cashed out $58.50",
+    "⚡|Marcus|stacked $112 this week","🍀|Dre S.|cashed out $40.00","🔥|Nay W.|just hit $300",
+    "💜|Trell V.|cashed out $65.75","🍀|Lex M.|cashed out $217.29","🔥|Jess L.|just hit $50",
+  ];
+  const NAMES = ["Tay R.","Lex M.","Dre S.","Marcus J.","Kee B.","Nay W.","Trell V.","Jay D.","Jess L.","Devon T."];
+
+  /* ---------- ticker ---------- */
+  (function(){
+    const row = TICKER.map(t=>{const[e,n,r]=t.split("|");return `<span class="ticker-item">${e} <b>${n}</b> ${r}</span>`}).join("");
+    document.getElementById("ticker").innerHTML = row+row;
+  })();
+
+  /* ---------- offer card rotation ---------- */
+  const seg = document.getElementById("offerSeg");
+  seg.innerHTML = GAMES.map(()=>"<i></i>").join("");
+  const segEls = seg.querySelectorAll("i");
+  let gi = 1, liveAmount = 8265;
+  function renderOffer(){
+    const g = GAMES[gi];
+    const icon = document.getElementById("offerIcon");
+    icon.textContent = g.emoji; icon.style.background = g.bg;
+    icon.style.transform="scale(.9)"; setTimeout(()=>icon.style.transform="scale(1)",60);
+    const mini = document.getElementById("offerMini");
+    mini.textContent = g.emoji; mini.style.background = g.bg;
+    document.getElementById("offerReward").textContent = g.reward;
+    document.getElementById("offerGame").textContent = g.name;
+    document.getElementById("offerGoal").textContent = g.goal;
+    segEls.forEach((s,i)=>s.classList.toggle("on", i===gi));
+    liveAmount += Math.floor(Math.random()*6)+2;
+    document.getElementById("liveAmount").innerHTML = "$"+liveAmount.toLocaleString()+" ↗";
+    document.getElementById("paidToday").textContent = "$"+liveAmount.toLocaleString();
+    gi = (gi+1)%GAMES.length;
+  }
+  renderOffer();
+  setInterval(renderOffer, 3000);
+
+  /* ---------- total paid counter ---------- */
+  let total = 38403075;
+  setInterval(()=>{ total += Math.floor(Math.random()*40)+8; document.getElementById("totalPaid").textContent = "$"+total.toLocaleString(); }, 2500);
+
+  /* ---------- payouts grid ---------- */
+  document.getElementById("payGrid").innerHTML = GAMES.map(g=>`
+    <div class="pcard">
+      <div class="ph"><div class="pi" style="background:${g.bg}">${g.emoji}</div><div><div class="pn">${g.name}</div><div class="pg">${g.goal}</div></div></div>
+      <div class="pr">${g.reward}</div>
+    </div>`).join("");
+
+  /* ---------- countdown ---------- */
+  let remain = 4*60+54;
+  function fmt(s){const m=String(Math.floor(s/60)).padStart(2,"0");const ss=String(s%60).padStart(2,"0");return m+":"+ss;}
+  setInterval(()=>{ remain = remain>0 ? remain-1 : 4*60+54; document.querySelectorAll(".js-countdown").forEach(e=>e.textContent=fmt(remain)); }, 1000);
+
+  /* ---------- toasts ---------- */
+  const toast = document.getElementById("toast");
+  function showToast(){
+    const n = NAMES[Math.floor(Math.random()*NAMES.length)];
+    const amt = (Math.random()*200+40).toFixed(2);
+    document.getElementById("toastAv").textContent = n[0];
+    document.getElementById("toastText").innerHTML = `<b>${n}</b> just cashed out $${amt}`;
+    toast.classList.add("show");
+    setTimeout(()=>toast.classList.remove("show"), 4200);
+  }
+  setTimeout(showToast, 2500);
+  setInterval(showToast, 6500);
+
+  /* ---------- sticky CTA on scroll ---------- */
+  const sticky = document.getElementById("stickyCta");
+  window.addEventListener("scroll", ()=>{
+    const past = window.scrollY > window.innerHeight*0.7;
+    const sheetOpen = document.getElementById("sheet").classList.contains("open");
+    const quizOpen = document.getElementById("quiz").classList.contains("open");
+    sticky.classList.toggle("show", past && !sheetOpen && !quizOpen);
+  }, {passive:true});
+
+  /* ---------- quiz flow ---------- */
+  const quiz = document.getElementById("quiz");
+  const sheet = document.getElementById("sheet");
+  let step = 1;
+  function setStep(n){
+    document.querySelectorAll("#quiz [data-q]").forEach(el=>el.style.display = el.dataset.q==String(n) ? "" : "none");
+    const pct = n===1?33 : n===2?67 : 100;
+    document.getElementById("qStep").textContent = "Step "+n+"/3";
+    document.getElementById("qBar").style.width = pct+"%";
+    document.getElementById("qPct").textContent = pct+"%";
+  }
+  function openQuiz(){ step=1; setStep(1); sheet.classList.remove("open"); quiz.classList.add("open"); sticky.classList.remove("show"); document.body.style.overflow="hidden"; quiz.scrollTop=0; }
+  function openSheet(){
+    quiz.classList.remove("open");
+    document.body.classList.add("revealed");   // render the page behind the popup so it shows through the blur
+    document.body.style.overflow="hidden";     // keep it locked while the popup is up
+    sheet.classList.add("open");
+  }
+  // backing out of the quiz is only allowed once the page has been revealed
+  function closeQuiz(){ quiz.classList.remove("open"); if(document.body.classList.contains("revealed")) document.body.style.overflow=""; }
+  // dismissing the popup reveals the "Get paid to play games" page for the first time
+  function dismissSheet(){
+    sheet.classList.remove("open");
+    document.body.classList.add("revealed");
+    document.body.style.overflow="";
+    window.scrollTo(0,0);
+  }
+
+  // Every CTA is an <a href> to OFFER_URL (so the tracking script can rewrite it).
+  // The quiz only advances via its own answer buttons (data-next).
+  document.querySelectorAll("#quiz [data-next]").forEach(b=>b.addEventListener("click", ()=>{
+    step++;
+    if(step<=3) setStep(step);
+    if(step===3) setTimeout(openSheet, 2600);
+  }));
+
+  /* ---------- terms & conditions popup ---------- */
+  const tcModal = document.getElementById("tcModal");
+  function openTC(){ tcModal.classList.add("open"); }
+  function closeTC(){ tcModal.classList.remove("open"); }
+  document.querySelectorAll("[data-tc-open]").forEach(el=>el.addEventListener("click", e=>{ e.preventDefault(); openTC(); }));
+  document.getElementById("tcClose").addEventListener("click", closeTC);
+  tcModal.addEventListener("click", e=>{ if(e.target===tcModal) closeTC(); });
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && tcModal.classList.contains("open")) closeTC(); });
+
+  document.getElementById("sheetClose").addEventListener("click", dismissSheet);
+  document.getElementById("sheetPass").addEventListener("click", dismissSheet);
+  sheet.addEventListener("click", e=>{ if(e.target===sheet) dismissSheet(); });
+  quiz.addEventListener("click", e=>{ if(e.target===quiz && document.body.classList.contains("revealed")) closeQuiz(); });
+  document.addEventListener("keydown", e=>{
+    if(e.key!=="Escape") return;
+    if(sheet.classList.contains("open")) dismissSheet();
+    else if(quiz.classList.contains("open") && document.body.classList.contains("revealed")) closeQuiz();
+  });
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
