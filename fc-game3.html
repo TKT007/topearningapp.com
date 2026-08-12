@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Get paid to play</title>
+<style>
+  :root{
+    --bg:#0a0c0b;
+    --card:#131614;
+    --card2:#171b18;
+    --green:#22e584;
+    --text:#f2f4f3;
+    --muted:#9aa39e;
+    --border:#242a26;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding-bottom:calc(150px + env(safe-area-inset-bottom));
+  }
+  body.locked{overflow:hidden;}
+  .wrap{max-width:520px;margin:0 auto;padding:0 14px;}
+
+  /* BRAND HEADER */
+  .brand{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 0 0;}
+  .brand-icon{height:28px;width:auto;display:block;}
+  .brand-word{height:22px;width:auto;display:block;}
+
+  /* HERO */
+  .hero{text-align:center;padding:16px 10px 16px;}
+  .rating-pill{
+    display:inline-flex;align-items:center;gap:7px;
+    border:1px solid rgba(34,229,132,.35);
+    background:rgba(34,229,132,.06);
+    border-radius:999px;padding:7px 14px;font-size:13px;margin-bottom:14px;
+  }
+  .stars{color:var(--green);letter-spacing:1.5px;font-size:13px;}
+  h1{font-size:32px;line-height:1.08;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;}
+  h1 span{color:var(--green);}
+  .hero p{color:var(--muted);font-size:15px;line-height:1.45;max-width:360px;margin:0 auto;}
+  .live-pill{
+    display:inline-flex;align-items:center;gap:9px;
+    border:1px solid rgba(34,229,132,.3);
+    background:rgba(34,229,132,.05);
+    border-radius:999px;padding:9px 16px;
+    font-size:14px;font-weight:700;color:var(--green);
+    margin-top:16px;
+  }
+  .live-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--green);
+    animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;
+  }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.8);}}
+
+  /* VIDEO */
+  .video-slot{
+    border-radius:20px;overflow:hidden;border:1px solid var(--border);
+    position:relative;aspect-ratio:16/9;
+    background:linear-gradient(160deg,#1a2e1c,#0f1a10);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .video-slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .video-badge{
+    position:absolute;right:10px;bottom:10px;z-index:3;
+    display:flex;align-items:center;gap:9px;
+    background:rgba(8,10,9,.84);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:1px solid rgba(34,229,132,.35);
+    border-radius:13px;padding:8px 11px;max-width:76%;
+  }
+  .video-badge .lock{
+    width:26px;height:26px;border-radius:8px;flex-shrink:0;
+    background:rgba(34,229,132,.13);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .video-badge svg{width:14px;height:14px;fill:var(--green);}
+  .video-badge .vb-1{font-size:11px;font-weight:800;letter-spacing:.7px;color:var(--green);text-transform:uppercase;line-height:1.3;}
+  .video-badge .vb-2{font-size:12px;font-weight:600;color:var(--muted);line-height:1.3;}
+  @media(max-width:380px){
+    .video-badge{right:8px;bottom:8px;padding:7px 9px;gap:7px;}
+    .video-badge .vb-2{font-size:11px;}
+  }
+
+  /* LIVE CASHOUTS TICKER */
+  .ticker-card{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    margin-top:14px;overflow:hidden;
+  }
+  .ticker-head{
+    display:flex;align-items:center;gap:9px;
+    padding:13px 16px;border-bottom:1px solid var(--border);
+    font-size:11.5px;font-weight:800;letter-spacing:1.6px;color:var(--muted);
+  }
+  .ticker-body{
+    position:relative;overflow:hidden;
+    padding:13px 0;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .ticker-track{
+    display:flex;width:max-content;will-change:transform;
+  }
+  .ticker-item{
+    display:flex;align-items:center;gap:10px;
+    padding:0 18px;font-size:14px;color:var(--text);white-space:nowrap;
+  }
+  .ticker-item .amt{color:var(--green);font-weight:800;}
+  .ticker-item::after{content:"·";color:var(--border);margin-left:18px;}
+
+  /* FEATURED GAME CARD */
+  .game-card{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    margin-top:14px;padding:18px 16px 20px;
+  }
+  .game-row{display:flex;align-items:center;gap:14px;}
+  .game-icon{
+    width:74px;height:74px;border-radius:17px;flex-shrink:0;
+    background:linear-gradient(150deg,#2a4d2e,#14251a);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:34px;
+    overflow:hidden;
+  }
+  .game-icon img{width:100%;height:100%;object-fit:cover;}
+  .game-info{flex:1;min-width:0;}
+  .game-title{font-size:21px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px;}
+  .game-sub{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:7px;margin-bottom:6px;}
+  .game-sub .stars{font-size:12px;}
+  .game-unlock{
+    display:inline-flex;align-items:center;gap:7px;
+    border:1px solid rgba(34,229,132,.3);
+    background:rgba(34,229,132,.06);
+    border-radius:999px;padding:6px 11px;
+    font-size:12.5px;font-weight:700;color:var(--green);line-height:1.25;
+  }
+  .game-unlock svg{width:12px;height:12px;fill:var(--green);flex-shrink:0;}
+
+  .divider{height:1px;background:var(--border);margin:20px 0 18px;}
+
+  .steps-title{
+    font-size:11.5px;font-weight:800;letter-spacing:1.6px;
+    color:var(--muted);margin-bottom:14px;
+  }
+  .step{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+  .step:last-child{margin-bottom:0;}
+  .step-num{
+    width:36px;height:36px;border-radius:11px;flex-shrink:0;
+    border:1.5px solid rgba(34,229,132,.4);background:rgba(34,229,132,.07);
+    color:var(--green);font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step-txt{font-size:15px;line-height:1.3;}
+
+  /* MINI STATS */
+  .mini-stats{
+    display:flex;justify-content:center;gap:8px;margin-top:14px;
+    font-size:13px;color:var(--muted);flex-wrap:wrap;align-items:center;
+  }
+  .mini-stats b{color:var(--text);}
+  .mini-stats .sep{color:var(--border);}
+
+  /* LEGAL LINKS */
+  .legal-row{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin-top:16px;flex-wrap:wrap;
+  }
+  .legal-btn{
+    background:var(--card2);border:1px solid var(--border);color:var(--muted);
+    border-radius:999px;padding:9px 18px;font-size:13px;font-weight:600;
+    cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;
+  }
+  .legal-btn:active{color:var(--text);border-color:var(--green);}
+  .disclaimer{
+    text-align:center;font-size:12.5px;color:#6b736e;line-height:1.55;
+    margin-top:22px;padding:0 6px;
+  }
+
+  /* STICKY FOOTER */
+  .footer{
+    position:fixed;left:0;right:0;bottom:0;z-index:900;
+    background:linear-gradient(rgba(10,12,11,0), var(--bg) 22%);
+    padding:22px 14px calc(16px + env(safe-area-inset-bottom));
+  }
+  .footer-inner{max-width:520px;margin:0 auto;}
+  .cta-hint{
+    text-align:center;font-size:13px;color:var(--green);font-weight:600;
+    margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .btn-row{display:flex;gap:10px;}
+  .store-btn{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
+    border-radius:16px;padding:14px 10px;text-decoration:none;
+    border:1px solid var(--border);cursor:pointer;
+    transition:transform .1s;
+  }
+  .store-btn:active{transform:scale(.97);}
+  .store-btn .txt{display:flex;flex-direction:column;line-height:1.15;text-align:left;}
+  .store-btn .small{font-size:11px;font-weight:500;}
+  .store-btn .big{font-size:16px;font-weight:800;}
+  .btn-dark{background:var(--card2);color:var(--text);}
+  .btn-green{background:var(--green);color:#062b17;border-color:var(--green);}
+  .store-btn svg{width:22px;height:22px;flex-shrink:0;}
+
+  /* MODALS */
+  .overlay{
+    position:fixed;inset:0;z-index:9999;
+    background:rgba(4,6,5,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;padding:18px;
+    opacity:0;pointer-events:none;transition:opacity .2s;
+  }
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    position:relative;width:100%;max-width:460px;max-height:80vh;overflow-y:auto;
+    background:#0f1211;border:1px solid var(--border);border-radius:24px;
+    padding:34px 24px 26px;
+    transform:translateY(14px) scale(.98);transition:transform .22s;
+  }
+  .overlay.open .modal{transform:translateY(0) scale(1);}
+  .modal-close{
+    position:absolute;top:16px;right:16px;
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(255,255,255,.07);border:none;color:var(--text);
+    font-size:20px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .modal-kicker{
+    text-align:center;font-size:12px;font-weight:800;letter-spacing:2px;
+    color:var(--green);margin-bottom:14px;
+  }
+  .modal h2{font-size:25px;font-weight:800;line-height:1.2;letter-spacing:-.4px;text-align:center;margin-bottom:12px;}
+  .modal h2 span{color:var(--green);}
+  .modal .body{color:var(--muted);font-size:15px;line-height:1.5;text-align:center;}
+  .modal-btn{
+    display:block;width:100%;margin-top:24px;
+    background:var(--green);color:#062b17;border:none;border-radius:999px;
+    padding:17px;font-size:17px;font-weight:800;font-family:inherit;cursor:pointer;
+  }
+  .modal-btn:active{transform:scale(.98);}
+  .modal-btn.secondary{
+    background:transparent;color:var(--muted);
+    border:1px solid var(--border);
+    margin-top:10px;font-size:15px;font-weight:700;
+  }
+  /* legal modal variant */
+  .modal.legal h2{text-align:left;font-size:24px;margin-bottom:18px;}
+  .modal.legal .body{text-align:left;font-size:14.5px;}
+  .modal.legal .body p{margin-bottom:14px;}
+  .modal.legal .body p:last-child{margin-bottom:0;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- BRAND -->
+  <div class="brand">
+    <svg class="brand-icon" viewBox="0 0 21 19" fill="var(--green)" aria-label="Freecash icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path></svg>
+    <svg class="brand-word" viewBox="0 0 137 16" aria-label="Freecash">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="var(--green)"></path>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="var(--text)"></path>
+    </svg>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="rating-pill">
+      <span class="stars">★★★★★</span>
+      <b>4.7</b>
+      <span style="color:var(--green);font-weight:700;">App Store</span>
+      <span style="color:var(--muted);">(50K+ reviews)</span>
+    </div>
+    <h1>Get paid <span>to play</span></h1>
+    <p>Earn real cash playing games, completing tasks, and testing apps. Cash out anytime — no minimum.</p>
+    <div class="live-pill">
+      <span class="live-dot"></span>
+      <span id="live-count">1,845</span> people earning right now
+    </div>
+  </section>
+
+  <!-- GAMEPLAY VIDEO -->
+  <div class="video-slot">
+    <video autoplay muted loop playsinline src="media/gameplay.mp4"></video>
+    <div class="video-badge">
+      <div class="lock">
+        <svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5m0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3m0 11a2 2 0 0 1 1 3.7V19a1 1 0 0 1-2 0v-1.3A2 2 0 0 1 12 14Z"/></svg>
+      </div>
+      <div>
+        <div class="vb-1">Fruxela &mdash; locked</div>
+        <div class="vb-2">Unlocks after 4 hrs of gameplay</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE CASHOUTS TICKER -->
+  <section class="ticker-card">
+    <div class="ticker-head">
+      <span class="live-dot"></span>
+      LIVE CASHOUTS
+    </div>
+    <div class="ticker-body">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED GAME + HOW IT WORKS -->
+  <section class="game-card">
+    <div class="game-row">
+      <div class="game-icon" id="game-icon"><img src="images/fruxela.png" alt="Fruxela"></div>
+      <div class="game-info">
+        <div class="game-title" id="game-title">Fruxela</div>
+        <div class="game-sub">
+          <span class="stars">★★★★★</span>
+          <span id="game-rating">4.8</span>
+          <span>·</span>
+          <span>Top Rated</span>
+        </div>
+        <div class="game-unlock">
+          <svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5m0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3m0 11a2 2 0 0 1 1 3.7V19a1 1 0 0 1-2 0v-1.3A2 2 0 0 1 12 14Z"/></svg>
+         Reward game &mdash; reached by playing other games first
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="steps-title">HOW IT WORKS</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-txt">Sign up on Freecash (21+ only)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-txt">Play games &amp; complete tasks</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-txt">Withdraw via PayPal, Visa, or Crypto</div>
+    </div>
+  </section>
+
+  <!-- MINI STATS -->
+  <div class="mini-stats">
+    <span><b>$50M+</b> paid out</span>
+    <span class="sep">·</span>
+    <span><b>4.7★</b> rating</span>
+    <span class="sep">·</span>
+    <span><b>$0</b> to join</span>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="disclaimer">
+    Availability, rewards, and eligibility may vary by user, location, and completed activity.
+    Results are not guaranteed and are based on individual participation. Earnings vary by offer.
+  </div>
+  <div class="legal-row">
+    <button class="legal-btn" id="privacy-open">Privacy Policy</button>
+    <button class="legal-btn" id="terms-open">Terms of Service</button>
+  </div>
+
+</div>
+
+<!-- STICKY FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="cta-hint"><span class="live-dot"></span> Available now on iOS and Android</div>
+    <div class="btn-row">
+      <a class="store-btn btn-dark" href="https://fb.otokuapps.com/click" target="_top" rel="noopener" id="ios-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span class="txt"><span class="small">Download on the</span><span class="big">App Store</span></span>
+      </a>
+      <a class="store-btn btn-green" href="https://fb.otokuapps.com/click" target="_top" rel="noopener" id="android-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.59.68.59 1.19s-.22.9-.57 1.18l-2.29 1.32-2.5-2.5 2.5-2.5 2.27 1.31M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/></svg>
+        <span class="txt"><span class="small">Get it on</span><span class="big">Google Play</span></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 21+ NOTICE MODAL -->
+<div class="overlay" id="age-overlay">
+  <div class="modal">
+    <button class="modal-close" data-close>&times;</button>
+    <div class="modal-kicker">AGE REQUIREMENT</div>
+    <h2>You must sign up as <span>21+</span></h2>
+    <div class="body">These game offers are only available to users aged 21 and over.</div>
+    <button class="modal-btn" id="age-continue">Got it &rarr;</button>
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div class="overlay" id="privacy-overlay">
+  <div class="modal legal">
+    <button class="modal-close" data-close>&times;</button>
+    <h2>Privacy Policy</h2>
+    <div class="body">
+      <p>We respect your privacy. We collect only the information needed to operate this page and route you to our partner offers, such as basic device and analytics data.</p>
+      <p>We may use cookies or similar technologies for analytics and to measure campaign performance.</p>
+      <p>When you proceed to an offer, you may be subject to the privacy practices of the partner you are directed to.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS MODAL -->
+<div class="overlay" id="terms-overlay">
+  <div class="modal legal">
+    <button class="modal-close" data-close>&times;</button>
+    <h2>Terms of Service</h2>
+    <div class="body">
+      <p>This page is an independent promotional landing page and is not affiliated with, endorsed by, or sponsored by Freecash, Apple, Google, TikTok, or ByteDance unless explicitly stated.</p>
+      <p>Bonuses, rewards, and earnings shown are illustrative and are not guaranteed. They depend on eligibility, offer availability, task completion, and individual effort.</p>
+      <p>You must be of legal age in your jurisdiction to participate. Void where prohibited.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
+
+// Featured game shown in the card
+const FEATURED = {
+  title: "Fruxela",
+  rating: "4.8",
+  icon: "images/fruxela.png"
+};
+
+// Names + payout range used by the live cashouts ticker
+const NAMES = ["Maria","Tyler","Sofia","Jordan","Emily","Marcus","Ava","Diego",
+               "Chloe","Ethan","Isabella","Noah","Camila","Liam","Zoe","Mateo",
+               "Grace","Andre","Priya","Kevin"];
+const MIN_PAYOUT = 28, MAX_PAYOUT = 214;
+
+/* ============================================================
+   FEATURED GAME
+   ============================================================ */
+document.getElementById('game-title').textContent  = FEATURED.title;
+document.getElementById('game-rating').textContent = FEATURED.rating;
+if(FEATURED.icon){
+  document.getElementById('game-icon').innerHTML =
+    '<img src="'+FEATURED.icon+'" alt="'+FEATURED.title+'">';
+}
+
+/* ============================================================
+   LIVE CASHOUTS TICKER  (rAF-driven, seamless, never resets)
+   ============================================================ */
+const track = document.getElementById('ticker-track');
+const rand  = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
+const pick  = arr => arr[Math.floor(Math.random()*arr.length)];
+
+const SPEED = 42; // px per second
+
+function makeItem(){
+  const el = document.createElement('div');
+  el.className = 'ticker-item';
+  el.innerHTML = pick(NAMES) + ' just cashed out <span class="amt">$' +
+                 rand(MIN_PAYOUT, MAX_PAYOUT) + '</span>';
+  return el;
+}
+
+// keep the track at least 2 viewport-widths long so there is never a gap
+function fill(){
+  const needed = track.parentElement.offsetWidth * 2 + 400;
+  let guard = 0;
+  while(track.scrollWidth < needed && guard++ < 300) track.appendChild(makeItem());
+}
+fill();
+window.addEventListener('resize', fill);
+
+let offset = 0, last = performance.now();
+
+function tick(now){
+  let dt = (now - last) / 1000;
+  last = now;
+  if(dt > 0.05) dt = 0.05;              // guard against tab-switch jumps
+  offset += SPEED * dt;
+
+  // recycle any item that has fully scrolled off the left edge
+  let first = track.firstElementChild;
+  while(first){
+    const w = first.getBoundingClientRect().width;
+    if(offset < w) break;
+    offset -= w;
+    track.removeChild(first);
+    track.appendChild(makeItem());       // fresh cashout, appended off-screen
+    first = track.firstElementChild;
+  }
+
+  track.style.transform = 'translateX(' + (-offset) + 'px)';
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden) last = performance.now();
+});
+
+/* ============================================================
+   LIVE EARNER COUNTER
+   ============================================================ */
+const liveCount = document.getElementById('live-count');
+let earners = rand(1780, 1920);
+setInterval(() => {
+  earners += rand(-6, 9);
+  if(earners < 1650) earners = 1650;
+  if(earners > 2100) earners = 2100;
+  liveCount.textContent = earners.toLocaleString('en-US');
+}, 3000);
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+function openModal(el){ el.classList.add('open'); document.body.classList.add('locked'); }
+function closeModal(el){ el.classList.remove('open'); document.body.classList.remove('locked'); }
+
+document.querySelectorAll('.overlay').forEach(ov => {
+  ov.addEventListener('click', e => { if(e.target === ov) closeModal(ov); });
+  ov.querySelectorAll('[data-close]').forEach(btn =>
+    btn.addEventListener('click', () => closeModal(ov))
+  );
+});
+
+const privacyOverlay = document.getElementById('privacy-overlay');
+const termsOverlay   = document.getElementById('terms-overlay');
+document.getElementById('privacy-open').addEventListener('click', () => openModal(privacyOverlay));
+document.getElementById('terms-open').addEventListener('click',   () => openModal(termsOverlay));
+
+/* ============================================================
+   CTA -> 21+ NOTICE -> OFFER
+   ============================================================ */
+const ageOverlay = document.getElementById('age-overlay');
+const iosBtn     = document.getElementById('ios-btn');
+const androidBtn = document.getElementById('android-btn');
+let pendingUrl   = '';
+
+function goTo(url){
+  try{
+    if(window.top && window.top !== window) window.top.location.assign(url);
+    else window.location.assign(url);
+  }catch(err){
+    window.location.href = url;
+  }
+}
+
+[iosBtn, androidBtn].forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    pendingUrl = btn.href;
+    openModal(ageOverlay);
+  });
+});
+
+document.getElementById('age-continue').addEventListener('click', () => {
+  closeModal(ageOverlay);
+  if(pendingUrl) goTo(pendingUrl);
+});
+</script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"11ef48189dbf47fe9d6436916a3c076d","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
