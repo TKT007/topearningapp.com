@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -467,39 +469,6 @@ button{
 
   font-size:11px;
   letter-spacing:1px
-}
-
-.cashout-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:8px
-}
-
-.cashout-shot{
-  aspect-ratio:9/16;
-
-  overflow:hidden;
-
-  border:
-    1px solid
-    hsl(153,15%,18%);
-
-  border-radius:12px;
-
-  background:
-    hsl(153,10%,10%)
-}
-
-.cashout-shot img{
-  display:block;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-  object-position:center top
 }
 
 .quiz-question{
@@ -1795,6 +1764,7 @@ button{
         </div>
       </div>
 
+      <div class="social-section">
         <button
           type="button"
           class="btn-neon btn-neon-cta social-cta"
@@ -1833,7 +1803,7 @@ button{
       </p>
 
       <p class="quiz-step">
-        Step 1 of 3
+        Step 1 of 2
       </p>
     </div>
 
@@ -1842,7 +1812,6 @@ button{
       style="animation-delay:.1s"
     >
       <span class="quiz-dot active"></span>
-      <span class="quiz-dot"></span>
       <span class="quiz-dot"></span>
     </div>
 
@@ -1857,7 +1826,7 @@ button{
       type="button"
       class="btn-quiz btn-quiz-primary anim"
       style="animation-delay:.25s"
-      data-next-screen="screenQ2"
+      data-next-screen="screenQ3"
     >
       <span class="quiz-opt-icon">
         🍎
@@ -1880,7 +1849,7 @@ button{
       type="button"
       class="btn-quiz anim"
       style="animation-delay:.35s"
-      data-next-screen="screenQ2"
+      data-next-screen="screenQ3"
     >
       <span class="quiz-opt-icon">
         🤖
@@ -1893,87 +1862,6 @@ button{
 
         <span class="sub">
           Android, Windows and other devices
-        </span>
-      </span>
-
-      <span class="quiz-opt-radio"></span>
-    </button>
-  </div>
-
-  <div
-    id="screenQ2"
-    class="screen hidden"
-    style="display:none"
-  >
-    <div class="logo-row anim">
-      <img
-        src="https://i.imgur.com/d4rEH4U.png"
-        alt="Freecash"
-      >
-    </div>
-
-    <div
-      class="quiz-header anim"
-      style="animation-delay:.05s"
-    >
-      <p class="quiz-eyebrow">
-        Earnings Quiz
-      </p>
-
-      <p class="quiz-step">
-        Step 2 of 3
-      </p>
-    </div>
-
-    <div
-      class="quiz-progress anim"
-      style="animation-delay:.1s"
-    >
-      <span class="quiz-dot done"></span>
-      <span class="quiz-dot active"></span>
-      <span class="quiz-dot"></span>
-    </div>
-
-    <h2
-      class="quiz-question anim"
-      style="animation-delay:.15s"
-    >
-      Are you serious about earning from
-      your screentime?
-    </h2>
-
-    <button
-      type="button"
-      class="btn-quiz anim"
-      style="animation-delay:.25s"
-      data-next-screen="screenQ3"
-    >
-      <span class="quiz-opt-icon">
-        💪
-      </span>
-
-      <span class="quiz-opt-text">
-        <span class="main">
-          Yes, I'm ready to start
-        </span>
-      </span>
-
-      <span class="quiz-opt-radio"></span>
-    </button>
-
-    <button
-      type="button"
-      class="btn-quiz anim"
-      style="animation-delay:.35s"
-      data-next-screen="screenQ3"
-    >
-      <span class="quiz-opt-icon">
-        🤔
-      </span>
-
-      <span class="quiz-opt-text">
-        <span class="main">
-          Just exploring
         </span>
       </span>
 
@@ -2002,7 +1890,7 @@ button{
       </p>
 
       <p class="quiz-step">
-        Step 3 of 3
+        Step 2 of 2
       </p>
     </div>
 
@@ -2010,7 +1898,6 @@ button{
       class="quiz-progress anim"
       style="animation-delay:.1s"
     >
-      <span class="quiz-dot done"></span>
       <span class="quiz-dot done"></span>
       <span class="quiz-dot active"></span>
     </div>
